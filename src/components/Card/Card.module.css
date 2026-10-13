@@ -1,0 +1,10 @@
+.card {
+  padding: 16px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+}
