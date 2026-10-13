@@ -22,7 +22,7 @@ describe("Card", () => {
     );
     expect(tagElements.length).toBe(3);
 
-    const watchTimeElement = screen.getByText(/Watch Time: 25/i);
+    const watchTimeElement = screen.getByText(/Duration: 25 minutes/i);
     expect(watchTimeElement).toBeInTheDocument();
   });
 });

@@ -6,11 +6,15 @@ function Card({ title, image, tags, watchTime }: CardProps) {
       <h3>{title}</h3>
       <img src={image} alt={title} />
       <div>
-        {tags.map((tag) => (
-          <span key={tag}>{tag}</span>
+        Tags:
+        {tags.map((tag, index) => (
+          <span key={`${tag}-${index}`}>
+            {tag}
+            {index < tags.length - 1 ? ", " : ""}
+          </span>
         ))}
       </div>
-      <p>Watch Time: {watchTime}</p>
+      <p>Duration: {watchTime} minutes</p>
     </div>
   );
 }
