@@ -5,6 +5,7 @@ import Card from "./components/Card/Card";
 function App() {
   return (
     <div>
+      <h1>Health Assured Resource Centre</h1>
       {ResourcesData.map((resource) => (
         <Fragment key={resource.category}>
           <h2>{resource.category}</h2>
