@@ -4,6 +4,7 @@ import Card from "./components/Card/Card";
 import Sort from "./components/Sort/Sort";
 import Filter from "./components/Filter/Filter";
 import { sortByCategory, sortByDate } from "./utils/sort";
+import { filterResources } from "./utils/filter";
 
 function App() {
   const [sortOption, setSortOption] = useState("");
@@ -26,17 +27,21 @@ function App() {
         sortBy={sortOption}
         onSortChange={(value) => setSortOption(value)}
       />
-      {/* Render the Filter component with initial filterText value with onFilterChange function - TODO: Add filtering logic */}
+      {/* Render the Filter component with initial filterText value with onFilterChange function */}
       <Filter
         filterText={filterText}
         onFilterChange={(text) => setFilterText(text)}
       />
-      {resources.map((resource) => (
-        <Fragment key={resource.category}>
-          <h2>{resource.category}</h2>
-          <Card key={resource.id} {...resource} />
-        </Fragment>
-      ))}
+      {resources
+        .filter(
+          (resource) => filterResources([resource], filterText).length > 0,
+        )
+        .map((resource) => (
+          <Fragment key={resource.category}>
+            <h2>{resource.category}</h2>
+            <Card key={resource.id} {...resource} />
+          </Fragment>
+        ))}
     </div>
   );
 }

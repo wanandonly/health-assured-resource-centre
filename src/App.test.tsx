@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
@@ -64,5 +64,78 @@ describe("App", () => {
         (a, b) => new Date(a!).getTime() - new Date(b!).getTime(),
       ),
     );
+  });
+  test("Cards are filtered by title when filter input is changed", () => {
+    render(<App />);
+    const filterInput = screen.getByPlaceholderText(
+      "Filter by title or tags...",
+    );
+    userEvent.type(filterInput, "Wellness Weekly");
+    fireEvent.change(filterInput, {
+      target: { value: "Wellness Weekly" },
+    });
+
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Wellness Weekly" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Mindful Moments" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "The Science of Sleep" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: "Energy Boost Smoothie",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: "10-Minute Morning Stretch",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: "Guided Meditation for Stress Relief",
+      }),
+    ).not.toBeInTheDocument();
+  });
+  test("Cards are filtered by tag when filter input is changed", () => {
+    render(<App />);
+    const filterInput = screen.getByPlaceholderText(
+      "Filter by title or tags...",
+    );
+    userEvent.type(filterInput, "energy");
+    fireEvent.change(filterInput, {
+      target: { value: "energy" },
+    });
+
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Energy Boost Smoothie" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "10-Minute Morning Stretch",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Wellness Weekly" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Mindful Moments" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "The Science of Sleep" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: "Guided Meditation for Stress Relief",
+      }),
+    ).not.toBeInTheDocument();
   });
 });
