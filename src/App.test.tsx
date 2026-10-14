@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("App", () => {
@@ -26,5 +27,37 @@ describe("App", () => {
       const watchTimeElement = card.querySelector("p");
       expect(watchTimeElement).toBeInTheDocument();
     });
+  });
+  test("Cards are sorted by category when sort option is changed to category", () => {
+    render(<App />);
+    const sortDropdown = screen.getByRole("combobox");
+    userEvent.selectOptions(sortDropdown, "category");
+
+    const cardElements = screen.getAllByRole("card");
+    const categories = cardElements.map((card) => {
+      const categoryElement = card.querySelector("h2");
+      return categoryElement ? categoryElement.textContent : "";
+    });
+
+    expect(categories).toEqual([...categories].sort());
+  });
+  test("Cards are sorted by date when sort option is changed to date", () => {
+    render(<App />);
+    const sortDropdown = screen.getByRole("combobox");
+    userEvent.selectOptions(sortDropdown, "date");
+
+    const cardElements = screen.getAllByRole("card");
+    const dates = cardElements.map((card) => {
+      const dateElement = card.querySelector("p:last-of-type");
+      return dateElement
+        ? dateElement.textContent?.replace("Date Uploaded: ", "")
+        : "";
+    });
+
+    expect(dates).toEqual(
+      [...dates].sort(
+        (a, b) => new Date(a!).getTime() - new Date(b!).getTime(),
+      ),
+    );
   });
 });

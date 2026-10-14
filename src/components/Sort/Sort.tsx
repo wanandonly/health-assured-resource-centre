@@ -7,8 +7,9 @@ function Sort({ sortBy, onSortChange }: SortProps) {
 
   return (
     <select value={sortBy} onChange={handleSortChange}>
-      <option value="category">Sort by Category</option>
-      <option value="date">Sort by Date</option>
+      <option value="">Sort by</option>
+      <option value="category">Category</option>
+      <option value="date">Date</option>
     </select>
   );
 }
