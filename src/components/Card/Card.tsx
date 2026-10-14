@@ -9,7 +9,7 @@ function Card({
   duration,
   description,
   date_uploaded,
-}: CardProps) {
+}: Omit<CardProps, "category">) {
   const [toggleAllData, setToggleAllData] = useState(false);
 
   return (

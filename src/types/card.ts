@@ -1,4 +1,5 @@
 export interface CardProps {
+  category: string;
   title: string;
   thumbnail: string;
   tags: string[];
