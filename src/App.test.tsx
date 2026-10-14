@@ -2,8 +2,14 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 describe("App", () => {
-  test("renders all resource cards correctly", () => {
+  test("renders title, sort dropdown, and all resource cards correctly", () => {
     render(<App />);
+    const titleElement = screen.getByText("Health Assured Resource Centre");
+    expect(titleElement).toBeInTheDocument();
+
+    const sortDropdown = screen.getByRole("combobox");
+    expect(sortDropdown).toBeInTheDocument();
+
     const cardElements = screen.getAllByRole("card");
     expect(cardElements.length).toBeGreaterThan(0);
 
