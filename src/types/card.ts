@@ -1,6 +1,8 @@
 export interface CardProps {
   title: string;
-  image: string;
+  thumbnail: string;
   tags: string[];
-  watchTime: number;
+  duration: number;
+  description: string;
+  date_uploaded: string;
 }

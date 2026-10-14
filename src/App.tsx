@@ -8,13 +8,7 @@ function App() {
       {ResourcesData.map((resource) => (
         <Fragment key={resource.category}>
           <h2>{resource.category}</h2>
-          <Card
-            key={resource.title}
-            title={resource.title}
-            image={resource.thumbnail}
-            tags={resource.tags}
-            watchTime={resource.duration}
-          />
+          <Card key={resource.id} {...resource} />
         </Fragment>
       ))}
     </div>
