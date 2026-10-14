@@ -3,13 +3,18 @@ import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("App", () => {
-  test("renders title, sort dropdown, and all resource cards correctly", () => {
+  test("renders title, sort dropdown, filter input, and all resource cards correctly", () => {
     render(<App />);
     const titleElement = screen.getByText("Health Assured Resource Centre");
     expect(titleElement).toBeInTheDocument();
 
     const sortDropdown = screen.getByRole("combobox");
     expect(sortDropdown).toBeInTheDocument();
+
+    const filterInput = screen.getByPlaceholderText(
+      "Filter by title or tags...",
+    );
+    expect(filterInput).toBeInTheDocument();
 
     const cardElements = screen.getAllByRole("card");
     expect(cardElements.length).toBeGreaterThan(0);

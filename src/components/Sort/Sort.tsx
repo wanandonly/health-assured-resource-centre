@@ -1,4 +1,5 @@
 import { SortProps } from "../../types/sort";
+import styles from "./Sort.module.css";
 
 function Sort({ sortBy, onSortChange }: SortProps) {
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -6,7 +7,11 @@ function Sort({ sortBy, onSortChange }: SortProps) {
   };
 
   return (
-    <select value={sortBy} onChange={handleSortChange}>
+    <select
+      value={sortBy}
+      onChange={handleSortChange}
+      className={styles.sortDropdown}
+    >
       <option value="">Sort by</option>
       <option value="category">Category</option>
       <option value="date">Date</option>

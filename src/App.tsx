@@ -2,10 +2,12 @@ import { Fragment, useState } from "react";
 import ResourcesData from "./config/resources.json";
 import Card from "./components/Card/Card";
 import Sort from "./components/Sort/Sort";
+import Filter from "./components/Filter/Filter";
 import { sortByCategory, sortByDate } from "./utils/sort";
 
 function App() {
   const [sortOption, setSortOption] = useState("");
+  const [filterText, setFilterText] = useState("");
   const resources = [...ResourcesData].sort((a, b) => {
     if (sortOption === "category") {
       return sortByCategory([a, b])[0] === a ? -1 : 1;
@@ -23,6 +25,11 @@ function App() {
       <Sort
         sortBy={sortOption}
         onSortChange={(value) => setSortOption(value)}
+      />
+      {/* Render the Filter component with initial filterText value with onFilterChange function - TODO: Add filtering logic */}
+      <Filter
+        filterText={filterText}
+        onFilterChange={(text) => setFilterText(text)}
       />
       {resources.map((resource) => (
         <Fragment key={resource.category}>

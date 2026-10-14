@@ -5,7 +5,7 @@ describe("Filter", () => {
   test("renders filter input", () => {
     render(<Filter filterText="" onFilterChange={() => {}} />);
     const filterElement = screen.getByPlaceholderText(
-      "Filter resources by title or tags...",
+      "Filter by title or tags...",
     );
     expect(filterElement).toBeInTheDocument();
   });
